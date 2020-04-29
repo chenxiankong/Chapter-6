@@ -1,5 +1,6 @@
 package com.byted.camp.todolist.ui;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         if (newNotes != null) {
             notes.addAll(newNotes);
         }
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,7 +46,13 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int pos) {
-        holder.bind(notes.get(pos));
+        //CHEN 修改实现按优先级变色
+        Note note=notes.get(pos);
+        int pri=note.getPriority();
+        if(pri==3) holder.itemView.setBackgroundColor(Color.RED);
+        else if(pri==2) holder.itemView.setBackgroundColor(Color.GREEN);
+        else  holder.itemView.setBackgroundColor(Color.WHITE);
+        holder.bind(note);
     }
 
     @Override
